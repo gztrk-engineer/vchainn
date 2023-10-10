@@ -13,6 +13,12 @@ To install the dependencies:
 pip install -r requirements.txt
 ```
 
+To run tests, activate venv and run: 
+
+```
+python3 -m pytest backend/tests
+```
+
 ## Specifying the right versions
 
 If there are issues with packages, use the proven versions:
