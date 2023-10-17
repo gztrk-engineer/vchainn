@@ -6,9 +6,9 @@ def test_blockchain_instance():
 
     assert blockchain.chain[0].hash == GENESIS_DATA['hash']
 
-def test_add_block():
+def test_addBlock():
     blockchain = Blockchain()
     data = 'test-data'
-    blockchain.add_block(data)
+    blockchain.addBlock(data)
 
     assert blockchain.chain[-1].data == data

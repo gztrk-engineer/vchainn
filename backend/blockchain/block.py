@@ -1,12 +1,12 @@
 import time
 
-from backend.util.crypto_hash import crypto_hash
-from backend.util.hex_to_binary import hex_to_binary
+from backend.util.crypto_hash import cryptoHash
+from backend.util.hex2bin import hexToBinary
 from backend.config import MINE_RATE
 
 GENESIS_DATA = {
     'timestamp': 1,
-    'last_hash': 'genesis_last_hash',
+    'lastHash': 'genesis_last_hash',
     'hash': 'genesis_hash',
     'data': [],
     'difficulty': 3,
@@ -20,9 +20,9 @@ class Block:
     Store transactions in a blockchain that supports a cryptocurrency.
     """
 
-  def __init__(self, timestamp, last_hash, hash, data, difficulty, nonce):
+  def __init__(self, timestamp, lastHash, hash, data, difficulty, nonce):
     self.timestamp = timestamp
-    self.last_hash = last_hash
+    self.lastHash = lastHash
     self.hash = hash
     self.data = data
     self.difficulty = difficulty
@@ -31,31 +31,31 @@ class Block:
   def __repr__(self):
     return ('Block('
             f'timestamp: {self.timestamp}, '
-            f'last_hash: {self.last_hash}, '
+            f'lastHash: {self.lastHash}, '
             f'hash: {self.hash}, '
             f'data: {self.data}, '
             f'difficulty: {self.difficulty}, '
             f'nonce: {self.nonce})')
 
   @staticmethod
-  def mine_block(last_block, data):
+  def mineBlock(lastBlock, data):
     """
         Mine a block based on the given last_block and data, until a block hash
         is found that meets the leading 0's proof of work requirement.
         """
     timestamp = time.time_ns()
-    last_hash = last_block.hash
-    difficulty = Block.adjust_difficulty(last_block, timestamp)
+    lastHash = lastBlock.hash
+    difficulty = Block.adjustDifficulty(lastBlock, timestamp)
     nonce = 0
-    hash = crypto_hash(timestamp, last_hash, data, difficulty, nonce)
+    hash = cryptoHash(timestamp, lastHash, data, difficulty, nonce)
 
-    while hex_to_binary(hash)[0:difficulty] != '0' * difficulty:
+    while hexToBinary(hash)[0:difficulty] != '0' * difficulty:
       nonce += 1
       timestamp = time.time_ns()
-      difficulty = Block.adjust_difficulty(last_block, timestamp)
-      hash = crypto_hash(timestamp, last_hash, data, difficulty, nonce)
+      difficulty = Block.adjustDifficulty(lastBlock, timestamp)
+      hash = cryptoHash(timestamp, lastHash, data, difficulty, nonce)
 
-    return Block(timestamp, last_hash, hash, data, difficulty, nonce)
+    return Block(timestamp, lastHash, hash, data, difficulty, nonce)
 
   @staticmethod
   def genesis():
@@ -65,43 +65,43 @@ class Block:
     return Block(**GENESIS_DATA)
 
   @staticmethod
-  def adjust_difficulty(last_block, new_timestamp):
+  def adjustDifficulty(lastBlock, newTimestamp):
     """
         Calculate the adjusted difficulty according to the MINE_RATE.
         Increase the difficulty for slowly mined blocks.
         Decrease the difficulty for quickly mined blocks.
-        """
-    if (new_timestamp - last_block.timestamp) < MINE_RATE:
-      return last_block.difficulty + 1
+    """
+    if (newTimestamp - lastBlock.timestamp) < MINE_RATE:
+      return lastBlock.difficulty + 1
 
-    if (last_block.difficulty - 1) > 0:
-      return last_block.difficulty - 1
+    if (lastBlock.difficulty - 1) > 0:
+      return lastBlock.difficulty - 1
 
     return 1
 
   @staticmethod
   def isValidBlock(lastBlock, block):
-    if block.last_hash != lastBlock.hash:
+    if block.lastHash != lastBlock.hash:
       raise Exception("The block's last hash is incorrect!")
-    if hex_to_binary(block.hash)[0:block.difficulty] != "0" * block.difficulty:
-      raise Exception("The proof of work reqt not met. ")
+    if hexToBinary(block.hash)[0:block.difficulty] != "0" * block.difficulty:
+      raise Exception("The proof of work reqt not met.")
     if abs(lastBlock.difficulty - block.difficulty) > 1:
-      raise Exception("Block diff can only be adjusted by 1. ")
+      raise Exception("Block diff can only be adjusted by 1.")
 
-    reconstructedhash = crypto_hash(block.timestamp, block.last_hash,
+    reconstructedHash = cryptoHash(block.timestamp, block.lastHash,
                                     block.data, block.nonce, block.difficulty)
 
-    if block.hash != reconstructedhash:
+    if block.hash != reconstructedHash:
       raise Exception("The block hash is incorrect!")
 
 
 def main():
-  genesis_block = Block.genesis()
-  badBlock = Block.mine_block(Block.genesis(), "foo")
+  genesisBlock = Block.genesis()
+  badBlock = Block.mineBlock(Block.genesis(), "foo")
   # badBlock.last_hash = "evil_data"
 
   try:
-    Block.isValidBlock(genesis_block, badBlock)
+    Block.isValidBlock(genesisBlock, badBlock)
   except Exception as e:
     print(f"isValidBlock: {e}")
 

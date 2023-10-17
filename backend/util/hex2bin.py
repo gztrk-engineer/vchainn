@@ -1,4 +1,4 @@
-from backend.util.crypto_hash import crypto_hash
+from backend.util.crypto_hash import cryptoHash
 
 HEX_TO_BINARY_CONVERSION_TABLE = {
     '0': '0000',
@@ -20,13 +20,13 @@ HEX_TO_BINARY_CONVERSION_TABLE = {
 }
 
 
-def hex_to_binary(hex_string):
-  binary_string = ''
+def hexToBinary(hexString):
+  binaryString = ''
 
-  for character in hex_string:
-    binary_string += HEX_TO_BINARY_CONVERSION_TABLE[character]
+  for character in hexString:
+    binaryString += HEX_TO_BINARY_CONVERSION_TABLE[character]
 
-  return binary_string
+  return binaryString
 
 
 def main():

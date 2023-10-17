@@ -2,19 +2,19 @@ import hashlib
 import json
 
 
-def crypto_hash(*args):
+def cryptoHash(*args):
   """
     Return a sha-256 hash of the given arguments.
     """
-  stringified_args = sorted(map(lambda data: json.dumps(data), args))
-  joined_data = ''.join(stringified_args)
+  stringifiedArgs = sorted(map(lambda data: json.dumps(data), args))
+  joinedData = ''.join(stringifiedArgs)
 
-  return hashlib.sha256(joined_data.encode('utf-8')).hexdigest()
+  return hashlib.sha256(joinedData.encode('utf-8')).hexdigest()
 
 
 def main():
-  print(f"crypto_hash('one', 2, [3]): {crypto_hash('one', 2, [3])}")
-  print(f"crypto_hash(2, 'one', [3]): {crypto_hash(2, 'one', [3])}")
+  print(f"cryptoHash('one', 2, [3]): {cryptoHash('one', 2, [3])}")
+  print(f"cryptoHash(2, 'one', [3]): {cryptoHash(2, 'one', [3])}")
 
 
 if __name__ == '__main__':

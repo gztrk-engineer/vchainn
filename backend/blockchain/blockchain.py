@@ -8,16 +8,16 @@ class Blockchain:
     def __init__(self):
         self.chain = [Block.genesis()]
 
-    def add_block(self, data):
-        self.chain.append(Block.mine_block(self.chain[-1], data))
+    def addBlock(self, data):
+        self.chain.append(Block.mineBlock(self.chain[-1], data))
 
     def __repr__(self):
         return f'Blockchain: {self.chain}'
 
 def main():
     blockchain = Blockchain()
-    blockchain.add_block('one')
-    blockchain.add_block('two')
+    blockchain.addBlock('one')
+    blockchain.addBlock('two')
 
     print(blockchain)
     print(f'blockchain.py ___name__: {__name__}')
