@@ -37,6 +37,9 @@ class Block:
             f'difficulty: {self.difficulty}, '
             f'nonce: {self.nonce})')
 
+  def __eq__(self, other):
+    return self.__dict__ == other.__dict__
+
   @staticmethod
   def mineBlock(lastBlock, data):
     """
