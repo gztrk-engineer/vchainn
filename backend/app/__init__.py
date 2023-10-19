@@ -1,3 +1,6 @@
+import os
+import random
+
 from flask import Flask, jsonify 
 from backend.blockchain.blockchain import Blockchain
 from backend.pubsub import PubSub
@@ -24,7 +27,13 @@ def routeBlockchain():
 def routeBlockchainMine():
     transactionData = "stubbed_transaction_data"
     blockchain.addBlock(transactionData)
-    return jsonify(blockchain.chain[-1].toJson())
+    block = blockchain.chain[-1]
+    pubsub.broadcastBlock(block)
+    return jsonify(block.toJson())
 
-app.run()
-# app.run(port=5001)
+PORT = 5000
+
+if os.environ.get('PEER') == 'True':
+    PORT = random.randint(5001, 6000)
+
+app.run(port=PORT)
