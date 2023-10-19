@@ -4,3 +4,5 @@
 venv
 .idea
 .pytest_cache
+keys.py
+pip-freeze.txt
