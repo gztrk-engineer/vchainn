@@ -19,6 +19,11 @@ To run tests, activate venv and run:
 python3 -m pytest backend/tests
 ```
 
+To run a Flask app:
+```
+python3 -m backend.app
+```
+
 ## Specifying the right versions
 
 If there are issues with packages, use the proven versions:
