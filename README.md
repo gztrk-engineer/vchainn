@@ -41,6 +41,14 @@ pip install Werkzeug==0.16.0
 pip
 ```
 
+## Chain replacement
+
+Goal: set up a blockchain network where multiple nodes are contributing to the growth of the data as part of the eventual system.
+
+Each node will need to  come to a unanimous agreement on the official set of blocks if there is ever a point where a node in the network receives a different set of blocks.
+
+That is both a valid chain and a longer one than the node should replace its own chain with that incoming set of blocks.
+
 ## Running a peer 
 
 You need 3 terminal instances:
