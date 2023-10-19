@@ -1,4 +1,4 @@
-from flask import Flask 
+from flask import Flask, jsonify 
 from backend.blockchain.blockchain import Blockchain
 
 app = Flask(__name__)
@@ -13,6 +13,10 @@ def default():
 @app.route("/blockchain")
 def routeBlockchain():
     # Need to return string, dict, tuple, Response instance or WSGI callable
-    return blockchain.__repr__()
+    
+    # return blockchain.__repr__()
+    # Or jsonify(bch) -> server error (bch not serializable)
+    return jsonify(blockchain.toJson()) 
 
-app.run(port=5001)
+app.run()
+# app.run(port=5001)

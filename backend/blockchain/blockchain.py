@@ -29,6 +29,18 @@ class Blockchain:
         
         self.chain = incomingChain
 
+    def toJson(self):
+        """
+        Serialize the blockchain into a list of blocks
+        """
+        # serializedChain = []
+        # for block in self.chain:
+        #     serializedChain.append(block.toJson())
+        # return serializedChain
+
+        return list(map(lambda block: block.toJson(), self.chain))
+
+        
     @staticmethod
     def isValidChain(chain):
         """
