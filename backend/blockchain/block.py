@@ -44,17 +44,17 @@ class Block:
     """
     Serialize a block into a dictionary of its attributes
     """
-    print("*************")
-    print("Self dict: ")
-    print(self.__dict__)
+    # print("*************")
+    # print("Self dict: ")
+    # print(self.__dict__)
     return self.__dict__
 
   @staticmethod
   def mineBlock(lastBlock, data):
     """
-        Mine a block based on the given last_block and data, until a block hash
-        is found that meets the leading 0's proof of work requirement.
-        """
+    Mine a block based on the given last_block and data, until a block hash
+    is found that meets the leading 0's proof of work requirement.
+    """
     timestamp = time.time_ns()
     lastHash = lastBlock.hash
     difficulty = Block.adjustDifficulty(lastBlock, timestamp)
@@ -75,6 +75,13 @@ class Block:
         Generate the genesis block.
         """
     return Block(**GENESIS_DATA)
+
+  @staticmethod
+  def fromJson(blockAsJson):
+    """
+    Deserialize a block's json representation back into a block instance
+    """
+    return Block(**blockAsJson)
 
   @staticmethod
   def adjustDifficulty(lastBlock, newTimestamp):

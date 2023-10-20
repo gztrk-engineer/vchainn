@@ -7,7 +7,7 @@ from backend.pubsub import PubSub
 
 app = Flask(__name__)
 blockchain = Blockchain()
-pubsub = PubSub()
+pubsub = PubSub(blockchain)
 # for i in range(3):
 #     blockchain.addBlock(i+1)
 

@@ -78,3 +78,10 @@ Instance 3:
 source venv/bin/activate
 python3 -m backend.pubsub
 ```
+
+## What to do when block received
+
+For a valid block: 
+1. Validate
+2. Add to the local chain
+3. Broadcast
