@@ -40,6 +40,14 @@ class Blockchain:
 
         return list(map(lambda block: block.toJson(), self.chain))
 
+    @staticmethod
+    def fromJson(chainJson):
+        blockchain = Blockchain()
+        blockchain.chain = list(
+            map(lambda blockJson: Block.fromJson(blockJson), chainJson)
+        )
+        return blockchain
+
         
     @staticmethod
     def isValidChain(chain):

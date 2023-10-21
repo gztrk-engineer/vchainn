@@ -1,4 +1,5 @@
 import os
+import requests
 import random
 
 from flask import Flask, jsonify 
@@ -31,9 +32,18 @@ def routeBlockchainMine():
     pubsub.broadcastBlock(block)
     return jsonify(block.toJson())
 
-PORT = 5000
+ROOT_PORT = 5000
+PORT = ROOT_PORT
 
 if os.environ.get('PEER') == 'True':
     PORT = random.randint(5001, 6000)
+    result = requests.get(f'http://localhost:{ROOT_PORT}/blockchain')
+    print(f'Result JSON: {result.json()}')
+    resultBlockchain = Blockchain.fromJson(result.json())
+    try: 
+        blockchain.replaceChain(resultBlockchain.chain)
+        print('\n -- Successfully synced the local chain.')
+    except Exception as e:
+        print(f'\n -- Error syncing: {e}')
 
 app.run(port=PORT)
