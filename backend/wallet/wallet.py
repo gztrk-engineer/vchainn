@@ -4,6 +4,7 @@ import json
 # from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.asymmetric import ec
 from cryptography.hazmat.primitives import hashes
+from cryptography.exceptions import InvalidSignature
 from backend.config import STARTING_BALANCE
 
 class Wallet():
@@ -27,6 +28,21 @@ class Wallet():
             ec.ECDSA(hashes.SHA256())
         )
 
+    @staticmethod
+    def verify(publicKey, data, signature):
+        """
+        Verify 
+        """
+        try:
+            publicKey.verify(
+                signature,
+                json.dumps(data).encode('utf-8'), 
+                ec.ECDSA(hashes.SHA256())
+            )
+            return True
+        except InvalidSignature:
+            return False
+
 
 def main():
     wallet = Wallet()
@@ -34,6 +50,10 @@ def main():
     data = { "foo": "bar" }
     signature = wallet.sign(data)
     print(f'Signature: {signature}')
+    shouldBeValid = Wallet.verify(wallet.publicKey, data, signature)
+    print(f'ShouldBeValid: {shouldBeValid}')
+    shouldBeInvalid = Wallet.verify(Wallet().publicKey, data, signature)
+    print(f'ShouldBeInvalid: {shouldBeInvalid}')
 
 if __name__ == "__main__":
     main()
