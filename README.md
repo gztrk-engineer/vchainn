@@ -85,3 +85,25 @@ For a valid block:
 1. Validate
 2. Add to the local chain
 3. Broadcast
+
+## Transaction example  
+
+<details> 
+<summary>Example transaction data (`transaction.__dict__`): </summary>
+```js
+{
+    'id': 'ac880043', 
+    'output': {
+        'recipient': 15, 
+        'dd8ef45e': 985
+    }, 
+    'input': {
+        'timestamp': 1698072624465655842, 
+        'amount': 1000, 
+        'address': 'dd8ef45e', 
+        'publicKey': '<cryptography.hazmat.backends.openssl.ec._EllipticCurvePublicKey object at 0x7fe865976760>', 
+        'signature': b'0D\x02 d\xf6&\xce\xd6\x82\xff\xb7d\xf8\xb2Fx\x16\xa8\xdbs\x17\xb3\x1b\xb9V\xcf\xdb\xb8\x17\xbf>\x05\x0fg\x1e\x02 C\xcc\xfd\xc2\xca}\xbb\xe3&QMTG!\xea\xd7\x1d\x19 \xc2\xb3\x0e\xffj-\x06\x8eD\x1a\xfe>['
+    }
+}
+```
+</details>
