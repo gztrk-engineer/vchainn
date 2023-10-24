@@ -40,7 +40,18 @@ class Transaction():
             "publicKey": senderWallet.publicKey,
             "signature": senderWallet.sign(output)
         }
+    def updateTransaction(self, senderWallet, recipient, amount):
+        if amount > self.output[senderWallet.address]:
+            raise Exception("The amount exceeds the balance.")
 
+        if recipient in self.output:
+            self.output[recipient] = self.output[recipient] + amount 
+        else:
+            self.output[recipient] = amount 
+
+        self.output[senderWallet.address] = \
+            self.output[senderWallet.address] - amount
+     
 def main():
     transaction = Transaction(Wallet(), "recipient", 15)
     print(f'transaction.__dict__: {transaction.__dict__}')
