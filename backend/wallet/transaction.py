@@ -51,6 +51,8 @@ class Transaction():
 
         self.output[senderWallet.address] = \
             self.output[senderWallet.address] - amount
+
+        self.input = self.createInput(senderWallet, self.output)
      
 def main():
     transaction = Transaction(Wallet(), "recipient", 15)
