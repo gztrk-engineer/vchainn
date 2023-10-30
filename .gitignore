@@ -5,5 +5,7 @@ venv
 .idea
 .pytest_cache
 keys.py
+secrets.py
+check.json
 pip-freeze.txt
 temp.py

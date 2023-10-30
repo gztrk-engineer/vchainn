@@ -53,6 +53,30 @@ class Transaction():
             self.output[senderWallet.address] - amount
 
         self.input = self.createInput(senderWallet, self.output)
+
+    def toJson(self):
+        """
+        Serialize the transaction
+        """
+        return self.__dict__
+
+    @staticmethod
+    def isValidTransaction(transaction):
+        """
+        Validate transaction, raise exception if invalid
+        """
+        outputTotal = sum(transaction.output.values())
+
+        if transaction.input['amount'] != outputTotal:
+            raise Exception("Invalid transaction output value")
+
+        if not Wallet.verify(
+            transaction.input['publicKey'],
+            transaction.output, 
+            transaction.input['signature']
+        ):
+            raise Exception("Invalid signature")
+
      
 def main():
     transaction = Transaction(Wallet(), "recipient", 15)
