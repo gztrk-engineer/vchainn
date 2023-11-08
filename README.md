@@ -107,3 +107,16 @@ For a valid block:
 }
 ```
 </details>
+
+## Transaction pool 
+
+Collect the transactions data created by wallets. Functions:
+* Collects a unique set of transactions
+* Updates existing stored transactions
+* Can rewrite multiple transactions: 
+replace the collection altogether or
+or can clear the pool of some transaction
+
+How it works: 
+Everynode has a node
+
